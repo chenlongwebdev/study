@@ -1,0 +1,2 @@
+将 gemfile.lock 中的coffee-script-source (1.10.0) -》coffee-script-source (1.8.0)  
+然后再bundle install

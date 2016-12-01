@@ -1,0 +1,7 @@
+http://plugins.netbeans.org/plugin/38549   下载对应的插件解压
+http://wiki.netbeans.org/RubySupport  有安装教程
+
+
+估计是网络原因导致下载不了,确实不行的话参照下面的地址
+
+https://ruby-china.org/topics/6016

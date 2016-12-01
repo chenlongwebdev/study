@@ -1,0 +1,14 @@
+rails hello world 画面错误解决
+rails new project --skip -bundle
+在gemfile 中换源
+添加
+gem 'coffee-script-source', '1.8.0'
+
+bundle install
+
+bundle show 'coffee-script-source' 查看版本1.8.0
+
+新建hello world
+rails generate controller Welcome index
+
+http://127.0.0.1:3000/welcome/index 查看view 下面的视图

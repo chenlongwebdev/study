@@ -1,0 +1,4 @@
+devkit 要解压到ruby/devkit
+运行ruby dk.rb init
+ruby dk.rb install --force 强制更新
+ok

@@ -1,0 +1,174 @@
+重要***使用notepad++作为windows下ｇｉｔｂａｓｈ的默认编辑
+git config --global core.editor "c:/Pogram Files/Notepad++/notepad++.exe -multiInst -notabbar -nosession -noPlugin"
+在user目录下创建.bashrc
+写入
+alias notepad++ ="c:/Pogram Files/Notepad++/notepad++.exe -multiInst -notabbar -nosession -noPlugin"
+可在git bash 中输入notepadd++ 来调用
+
+重要*** detached HEAD 表示HEAD指针指向了游离态，直接checkout 到某个分支就行了
+
+
+
+
+
+Task 6  git add 
+用于将文件放入stage 暂存区域
+接受文件名和路径和任何shell 风格的通配符*， git add . 填加当前路径的所有文件
+-A会接受所有的没有被ignore的文件，-U 会将所有被tracked并被更新过的文件放入stage area中
+
+
+
+
+
+Task 7  git commit
+将处于暂存区的文件commit
+-m 给commit 添加注释
+-a 能够将所有被tracked的文件的changes直接commit 跳过add
+如果直接用git commit  将所有暂存区的文件提交 并会调用 core.editor 来写入commit信息 在此设置为notepad++
+
+
+
+
+
+Task 8  .gitignore
+该文件放置的父路径下的所有的文件都会匹配.gitignore,防止被commit 
+如果不想讲.gitignore文件commit 可以使用.git/info/excludes file 或 add the ignore
+cases to global excludesfile。因为该文件在.git的path中所以不会被commit
+
+可以通过定义core.excludesfile 来指向一个文件，该文件包含了一个全局的文件忽略规则，来忽略本机上的所有仓库的文件, 
+It follows the same format as the.gitignore and .git/info/excludes files
+
+
+
+
+
+Task 9 Undoing Uncommitted Changes
+撤销事务
+1 如果一个文件做了修改但是没有stage git checkout -- file 回到上次提交状态
+如果一个文件stage 但是没有提交 也没有继续修改 git reset HEAD -- file  回到上次未stage 状态, 变为状态1
+如果一个文件stage  但是没有提交 但是继续修改了 先 checkout 回到状态2
+
+git rm --cached file 能将committed和staged的文件删除变为只存在于工作区，如果文件不在这两个状态可以用-f 强制
+
+
+
+
+Task 10 Moving Files in GIt
+重命名
+git mv filename_before  filename_after
+移动
+git mv filename_before  path/
+移动并重命名
+git mv filename_before path/filename_after
+
+使用 -f 强制替换
+
+
+
+
+Task 11 Deleting Files in Git
+从仓库删除文件
+git rm -- filename
+git rm -- path/
+git rm -- path/filename
+将文件或文件夹下的所有的文件删除 并直接放入暂存区域
+使用 git reset HEAD -- filename 撤销暂存
+git checkout -- filename 回退版本文件
+
+Task 12 Sharing Changes
+git pull 将远程仓库代码拉取并合并到本地
+git push 将本地推送并合并到远程 
+fast-forward merge 
+
+Task 13 Creating and Switching Branches
+创建并合并分支
+git branch dev 创建分支dev
+git branch dev origin/dev 以远程origin/dev分支为时间点创建本地dev分支 
+git branch --track newbranck [originbranch] 创建分支并追踪远程 默认为track
+git branch --no-track newbranck [originbranch] 创建分支但是不追踪远程
+
+Task 14 Viewing Branches
+查看分支
+git branch 查看本地分支
+git branch -r 查看远程分支
+git branch -a 查看所有分支
+git branch --no-merged 查看没有合并到本地分支的分支 -a 能查看远程和本地 
+git branch --merged 查看合并到本地分支的分支
+最好从master分支运行此命令
+git branch --contains <commit id> 查看包含某一个commit id 的branch
+
+Task 15 Merging Commits Between Branches
+合并分支
+git merge branchA branchB 将分支b merge 到分支a中
+git merge branchB 如果要合并的分支是当前分支省略branchA
+git merge branchB 等价于 git merge --no-commit branchB 采用fast-forward mode 不提交
+git merge --no-ff -m "tips" branchb 合并分支并做一次提交 
+ 
+修改commit 的信息
+git commit --amend -c HEAD 能让我们在上一次的基础之上修改
+如果该commit被别人使用，谨慎处理
+
+
+
+
+Task 16 Rewriting History by Rebasing
+使用rebase 修改历史
+rebase 把一系列的commit 从新计算并放到另一个分支的最新的commit 之上
+如果别人拥有你的代码这回胃肠dangerous for the commit id was changed
+一旦和别人分享代码 就不要用rebase ,rebase 只能在本地使用
+
+git rebase 命令可以rebase在一个branch  tag  or commit ID 上 也能在git pull 时使用
+git rebase 需要一个干净的工作空间，没有未提交的文件， 可以将被修改的文件stash(暂存) 在rebase
+
+git reset --hard ORIG_HEAD 可以撤销之前的rebase 命令  ，但是如果切换到别的分之后还是会保存
+rebase 后的样子
+
+
+
+Task 17 Deleting Branches
+删除分支
+在git中分支是指向一系列提交的指针，删除一个分支不会删除相应的提交，而只是删除了相应的指针
+因为tag 和 branch都指向了一个单一的提交，可以在删除分之后使用tag来标记一次提交
+当我们需要修改并重新tag 新的版本时可以在这之上建立分支
+git branch -d branchname 删除已经被merge的分支
+git branch -D branchname 删除没有被merge的分支
+
+Task 18 Tagging Milestones
+标记一个提交
+git tag 在仓库中创建一个只读的标识，不能够在这之上checkout 和 commit 
+但是可以创建新的分支
+git tag tagname starton(不填的话默认为HEAD指针位置，也可以是branch 或是一个commit引用
+相对的绝对的都行)
+git tag  list出所有的tag
+
+
+Task 19 Adding and Removing Remotes
+添加和删除远程
+git remote add <name> <repository URL> 将远程仓库关联到本地
+git remote rm <name> 将与远程仓库的关联删除
+一个本地仓库可以关联多个
+
+
+
+
+
+Task 35  Fixing Commits
+开发过程中很容易忘记stage某个文件或填写了不够准确的commit描述. --amend就是用来fix这些错误的
+amend后生成的commit是一个全新的commit, 之前的老的commit会从项目历史中被删除. 如果你amend了一个被其他开发者使用的commit, 会严重影响其他开发者
+git commit --amend 用来替换当前的commit
+
+git reset --soft  commit_id到你需要修改的那一个commit,如果是最新的commit则不需要
+如果相对之前少提交了文件，add 然后 git commit --amend 就行
+如果相对之前修改文件，修改 然后add 然后 git commit --amend 就行
+如果之前提交了不应该被提交的文件则将这些文件重命名 mv filename newfilename 
+然后gitstatus 发现在delete区域
+
+git commit  -a  --amend
+
+然后git log --name-status -1 查看多余提交的文件已被撤销，此时可将之前重命名的文件再改回来重新upload后会生成一个patch set 2
+
+
+git commit --amend --no-edit
+
+
+编辑器的默认描述会是上一次commit的描述, --no-edit能让我们修复commit,而且不要修改commit描述.

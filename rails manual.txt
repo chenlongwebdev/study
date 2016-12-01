@@ -1,0 +1,73 @@
+﻿■相关软件目录
+\\ldns-nas3\Project2\14D203DReams\99．temp\wangl\ruby
+
+
+1)安装ruby
+  对应安装文件：rubyinstaller-2.3.1-x64.exe
+  这是64位系统的，如果是32位系统的请另下载
+
+2)安装DevKit
+  对应安装文件：DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe
+  这是64位系统的，如果是32位系统的请另下载
+
+  双击解压到C:\DevKit
+  然后在控制台执行
+  \DevKit\devkitvars
+
+3)gem更新
+  控制台执行
+  gem source -a http://rubygems.org/
+  在个人账户目录下找到这个文件(例：C:\Users\xxx
+  .gemrc
+  先备份保存一份
+  然后用文本编辑器打开，做如下修改
+  - http://rubygems.org/    <----追加此行(若已有不动)
+  - https://rubygems.org/   <----删除此行
+  保存关闭
+
+  控制台输入
+  gem update --system
+
+  然后再执行
+  gem install bundler
+
+4)安装rails
+  控制台输入
+  gem install rails --version="~> 4.2.3" --no-ri --no-rdoc
+  这是安装4.2版本的rails
+  虽然rails最新版本是5.0，不过http://railsdoc.com/的说明文档是基于4.2的
+  如果想装5.0的rails
+  控制台输入
+  gem install rails --version="5.0"
+
+
+  在控制台进入C:\DevKit目录下执行
+  ruby dk.rb init
+  生成config.yml，这里会检查将要添加DevKit支持的Ruby列表，只支持通过RubyInstaller安装的Ruby
+  继续执行
+  ruby dk.rb install
+  然后执行
+  gem install rdiscount --platform=ruby
+  这一步是验证DevKit是否安装成功，如果能安装rdiscount成功说明安装DevKit成功，也可以不做
+
+5)新建ruby on rails项目
+  任意路径下新建一个空文件夹，但是路径中不要包含空格与全角文字(例:D\rails
+  控制台中进入上述路径，输入执行
+  rails new foo --skip-bundle
+  此处foo位工程名，可任意起名
+  然后进入工程路径 cd foo
+  执行 bundle install
+  等待完成
+
+6)启动服务
+  控制台输入
+  rails server
+  打开网页在地址栏输入
+  http://127.0.0.1:3000/
+  会出现
+  Welcome aboard
+  You’re riding Ruby on Rails!
+
+7)rubyMine使用
+  在rubyMine中导入步骤5建立的工程，
+  另外，也可以在rubyMine中新建rails工程，这里不再记述

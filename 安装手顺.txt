@@ -1,0 +1,35 @@
+先安装rubyinstaller-2.3.1-x64.exe
+解压devkit打开cmd至此目录下
+ruby dk.rb init
+ruby dk.rb review 
+ruby dk.rb install
+install 失败的情况下添加ruby 的root目录至配置中
+接下来运行换源操作
+gem sources -r https://rubygems.org/
+gem soutces -a http://gems.ruby-china.org/
+安装rails
+gem install rails
+这步操作会下载依赖的包
+
+
+然后执行gem更新
+gem update --system
+验证devkit安装
+gem install rdiscount --platform=ruby
+
+安装bundler
+gem install bundler
+
+接下来安装rubymine  activationcode
+
+构建rails项目
+1 用ide构建
+2 命令行
+在存放project的路径下面：rails new project_name --skip -bundle
+cd project_name 回车 
+bundle install 回车
+
+开启服务并登录页面
+控制台
+rails server
+http://127.0.0.1:3000/

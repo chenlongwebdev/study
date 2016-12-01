@@ -1,0 +1,2 @@
+参照王亮的手顺
+一定要将devkit解压到c:/ruby/devkit中，并依次操作
